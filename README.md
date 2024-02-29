@@ -1,4 +1,5 @@
-Project for IVS class
+## Project for IVS class
+
 This project is focused on testing and good practices, when working on larger projects with team.
 Authors: Tomáš Lajda and others are mentioned in files, which they created.
 
