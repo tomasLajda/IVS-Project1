@@ -33,5 +33,33 @@
 //      *STEJNY* pocet cernych uzlu.
 //============================================================================//
 
-/*** Konec souboru black_box_tests.cpp ***/
+class EmptyTree : public testing::Test {
+  protected:
+    BinaryTree emptyTree = BinaryTree();
+};
 
+TEST_F(EmptyTree, InsertNode) {
+  std::pair<bool, Node_t*> insertedNode = emptyTree.InsertNode(1);
+  EXPECT_TRUE(insertedNode.first) << "Key: 1 wasn't inserted";
+  EXPECT_EQ(insertedNode.second->key, 1);
+  
+  insertedNode = emptyTree.InsertNode(1);
+  EXPECT_FALSE(insertedNode.first) << "Key: 1 was suppossed to be already inserted";
+  
+  insertedNode = emptyTree.InsertNode(2);
+  EXPECT_TRUE(insertedNode.first) << "Key: 2 wasn't inserted";
+  EXPECT_EQ(insertedNode.second->key, 2);
+}
+
+TEST_F(EmptyTree, DeleteNode) {
+  EXPECT_FALSE(emptyTree.DeleteNode(0)) << "Key: 0 should not exist"; 
+
+  EXPECT_FALSE(emptyTree.DeleteNode(1)) << "Key: 1 should not exist";
+}
+
+TEST_F(EmptyTree, FindNode) {
+  EXPECT_FALSE(emptyTree.FindNode(0)) << "Key: 0 should not exist"; 
+
+  EXPECT_FALSE(emptyTree.FindNode(1)) << "Key: 1 should not exist"; 
+}
+/*** Konec souboru black_box_tests.cpp ***/
