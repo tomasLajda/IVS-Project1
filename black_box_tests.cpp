@@ -98,7 +98,7 @@ TEST_F(NonEmptyTree, DeleteNode) {
 TEST_F(NonEmptyTree, FindNode) {
   EXPECT_FALSE(nonEmptyTree.FindNode(0)) << "Key: 0 should not exist"; 
 
-  EXPECT_TRUE(nonEmptyTree.FindNode(1)) << "Key: 1 should be found."; 
+  EXPECT_TRUE(nonEmptyTree.FindNode(1)) << "Key: 1 should be found"; 
 }
 
 
@@ -119,7 +119,7 @@ TEST_F(TreeAxioms, Axiom1) {
   treeAxioms.GetLeafNodes(leafs);
 
   for(Node_t* leaf : leafs) {
-    EXPECT_EQ(leaf->color, BinaryTree::BLACK);
+    EXPECT_EQ(leaf->color, BinaryTree::BLACK) << "Leaf should be red";
   }
 }
 
@@ -129,8 +129,8 @@ TEST_F(TreeAxioms, Axiom2) {
 
   for(Node_t * nonLeaf : nonLeafs) {
     if(nonLeaf->color == BinaryTree::RED) {
-      EXPECT_EQ(nonLeaf->pLeft->color, BinaryTree::BLACK);
-      EXPECT_EQ(nonLeaf->pRight->color, BinaryTree::BLACK);
+      EXPECT_EQ(nonLeaf->pLeft->color, BinaryTree::BLACK) << "Red note should have a left black child";
+      EXPECT_EQ(nonLeaf->pRight->color, BinaryTree::BLACK) << "Red note should have a right black child";
     }
   }
 }
