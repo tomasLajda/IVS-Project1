@@ -114,6 +114,7 @@ class TreeAxioms : public testing::Test {
   } 
 };
 
+// All leaf nodes (nodes without children) are "black"
 TEST_F(TreeAxioms, Axiom1) {
   std::vector<Node_t *> leafs;
   treeAxioms.GetLeafNodes(leafs);
@@ -123,6 +124,7 @@ TEST_F(TreeAxioms, Axiom1) {
   }
 }
 
+// If a node is "red", then both of its children are "black"
 TEST_F(TreeAxioms, Axiom2) {
   std::vector<Node_t *> nonLeafs;
   treeAxioms.GetNonLeafNodes(nonLeafs);
@@ -135,6 +137,7 @@ TEST_F(TreeAxioms, Axiom2) {
   }
 }
 
+// Each path from each leaf node to the root contains the same number of "black" nodes
 TEST_F(TreeAxioms, Axiom3) {
   std::vector<Node_t *> leafs;
   treeAxioms.GetLeafNodes(leafs);
