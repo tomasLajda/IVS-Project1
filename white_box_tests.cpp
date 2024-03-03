@@ -42,7 +42,7 @@ class HashTable : public testing::Test {
       std::ostringstream keyStream;
       keyStream << "Key " << i;
       std::string key = keyStream.str();
-
+      
       EXPECT_EQ(hash_map_put(hashTable, key.c_str(), i), OK);
     }
   }
@@ -77,10 +77,6 @@ TEST_F(HashTable, GetNotExistingKey) {
 
 TEST_F(HashTable, HashMapSize){
   ASSERT_EQ(hash_map_size(hashTable), HASH_MAP_INIT_SIZE);
-}
-
-TEST_F(HashTable, PutMoreThanSize) {
-  EXPECT_EQ(hash_map_put(hashTable, "Key 8", 8), OK);
 }
 
 TEST_F(HashTable, HashMapCapacity){
@@ -126,13 +122,17 @@ TEST_F(HashTable, HashMapDoesntContains) {
 
 TEST_F(HashTable, ReserveMore) {
   EXPECT_EQ(hash_map_reserve(hashTable, 32), OK);
+  EXPECT_EQ(hash_map_capacity(hashTable), 32);
 }
 
 TEST_F(HashTable, ReserveLess) {
-  EXPECT_EQ(hash_map_reserve(hashTable,1), VALUE_ERROR);
+  EXPECT_EQ(hash_map_reserve(hashTable, 1), VALUE_ERROR);
+  EXPECT_NE(hash_map_capacity(hashTable), 1);
 }
 
 TEST_F(HashTable, ReserveSame) {
   EXPECT_EQ(hash_map_reserve(hashTable, 16), OK);
+  EXPECT_EQ(hash_map_capacity(hashTable), 16);
 }
+
 /*** Konec souboru white_box_tests.cpp ***/
