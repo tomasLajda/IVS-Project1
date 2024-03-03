@@ -67,7 +67,7 @@ class NonEmptyTree : public testing::Test {
   protected:
     BinaryTree nonEmptyTree;
 
-  void SetUp() {
+  void SetUp() override {
     int keys[] = {2, 8, 20, 6, 14, 60, 24, 52, 1, 7};
     for(int key : keys) {
       nonEmptyTree.InsertNode(key);
@@ -106,7 +106,7 @@ class TreeAxioms : public testing::Test {
   protected:
     BinaryTree treeAxioms;
 
-  void SetUp() {
+  void SetUp() override {
     int keys[] = {50, 25, 75, 10, 40, 60, 5, 3, 1};
     for(int key : keys) {
       treeAxioms.InsertNode(key);
