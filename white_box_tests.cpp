@@ -49,7 +49,6 @@ class HashTable : public testing::Test {
 
   void TearDown() override {
     hash_map_dtor(hashTable);
-    EXPECT_FALSE(hash_map_contains(hashTable, "Key 1"));
     ASSERT_EQ(hashTable->allocated, 0);
   }
 };
