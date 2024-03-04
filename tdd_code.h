@@ -31,6 +31,7 @@ struct Node{
     size_t id;  ///< jednoznačný identifikátor uzlu
     size_t color;  ///< celé číslo reprezentující barvu uzlu, výchozí barva je 0 a značí neobarveno
     // doplňte vhodné struktury, pokud potřebujete
+    std::vector<Node*> neigbours;
 };
 
 /**
@@ -204,7 +205,8 @@ public:
 
 protected:
     // doplňte vhodné struktury
-
+    std::vector<Node*> nodes_;
+    std::vector<Edge> edges_;
 };
 
 #endif // TDD_CODE_H_
