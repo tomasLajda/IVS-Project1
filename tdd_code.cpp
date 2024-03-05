@@ -19,7 +19,9 @@
 
 Graph::Graph(){}
 
-Graph::~Graph(){}
+Graph::~Graph(){
+    clear();
+}
 
 std::vector<Node*> Graph::nodes() {
     return nodes_;
@@ -59,8 +61,6 @@ bool Graph::addEdge(const Edge& edge){
     Node* node_A = getNode(edge.a);
     Node* node_B = getNode(edge.b);
 
-
-
     node_A->neigbours.push_back(node_B);
     node_B->neigbours.push_back(node_A);
     
@@ -96,9 +96,42 @@ bool Graph::containsEdge(const Edge& edge) const{
 }
 
 void Graph::removeNode(size_t nodeId){
+    bool nodeDeleted = false;
+
+    for (auto i = nodes_.begin(); i != nodes_.end(); ++i) {
+        if ((*i)->id == nodeId) {
+            delete(*i);
+            nodes_.erase(i);
+            nodeDeleted = true;
+            break;
+        }
+    }
+
+    if(!nodeDeleted) {
+        throw std::out_of_range("Node doesn't exist");
+    }
+
+    
+    for (auto i = edges_.begin(); i != edges_.end();) {
+        if ((*i).a == nodeId || (*i).b == nodeId ) {
+            edges_.erase(i);            
+        }
+        else {
+            i++;
+        }
+    }
+    
 }
 
 void Graph::removeEdge(const Edge& edge){
+    for (auto i = edges_.begin(); i != edges_.end(); ++i) {
+        if ((*i) == edge) {
+            edges_.erase(i);
+            return;        
+        }
+    }
+
+    throw std::out_of_range("Edge doesn't exist");
 }
 
 size_t Graph::nodeCount() const{
@@ -120,15 +153,44 @@ size_t Graph::nodeDegree(size_t nodeId) const{
 }
 
 size_t Graph::graphDegree() const{
-    
-    return ;
+    size_t maxDegree = 0;
+
+    for(Node *node_ : nodes_) {
+        if(nodeDegree(node_->id) > maxDegree) {
+            maxDegree = node_->neigbours.size();
+        }
+    }
+
+    return maxDegree;
 }
 
 void Graph::coloring(){
+    for(Node *node_ : nodes_) {
+        int color = 1;
+
+        for(size_t i = 0; i < node_->neigbours.size();) {
+            Node *neigbour = node_->neigbours[i];
+            if(neigbour->color == color) {
+                color++;
+                i = 0;
+            }
+            else {
+                i++;
+            }
+        }
+
+        node_->color = color;
+    }
 }
 
 void Graph::clear() {
+    for (size_t i = 0; i < nodes_.size(); ++i) {
+        delete(nodes_[i]);
+    }
+
+    nodes_.clear();
+
+    edges_.clear();
 }
 
 /*** Konec souboru tdd_code.cpp ***/
-
