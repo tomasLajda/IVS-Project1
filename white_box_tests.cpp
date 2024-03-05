@@ -135,4 +135,10 @@ TEST_F(HashTable, ReserveSame) {
   EXPECT_EQ(hash_map_capacity(hashTable), 16);
 }
 
+TEST(OtherHashTable, RemoveFirst) {
+  hash_map* hashTable = hash_map_ctor();
+  hash_map_put(hashTable, "Key 0", 0);
+  EXPECT_EQ(hash_map_remove(hashTable, "Key 0"), OK);
+  hash_map_dtor(hashTable);
+}
 /*** Konec souboru white_box_tests.cpp ***/
